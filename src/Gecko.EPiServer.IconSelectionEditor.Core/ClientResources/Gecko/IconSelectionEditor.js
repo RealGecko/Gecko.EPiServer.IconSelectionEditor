@@ -1,14 +1,12 @@
 define([
     "dojo/_base/declare",
-    "dojo/string",
-    "dojo/_base/array",
     "dojo/_base/lang",
     "dojox/html/entities",
     "epi-cms/contentediting/editors/SelectionEditor",
     "dijit/MenuBarItem",
     "dijit/MenuSeparator"
 ],
-    function (declare, string, array, lang, entities, SelectionEditor, MenuBarItem, MenuSeparator) {
+    function (declare, lang, entities, SelectionEditor, MenuBarItem, MenuSeparator) {
         return declare("gecko/IconSelectionEditor", [SelectionEditor], {
             buildRendering: function () {
                 this.inherited(arguments);
@@ -17,12 +15,21 @@ define([
                 this.dropDown.domNode.classList.add('geckoIconSelectionEditorGrid');
             },
             _setSelectionsAttr: function (newSelections) {
-                this.set("options", array.map(newSelections, function (item) {
-                    return {
+
+                this.set("options", newSelections.flatMap(function (item, index) {
+                    var result = [];
+
+                    if (this.params.iconsPerRow > 0 && index % this.params.iconsPerRow == 0) {
+                        result.push({ type: "separator" });
+                    }
+
+                    result.push({
                         label: item.value.htmlString,
                         value: item.text,
                         selected: (item.value === this.value) || (!item.value && !this.value)
-                    };
+                    });
+
+                    return result;
                 }, this));
             },
             _onDropDownMouseDown: function () {

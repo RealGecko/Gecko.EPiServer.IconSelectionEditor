@@ -15,11 +15,14 @@ namespace Gecko.EPiServer.IconSelectionEditor.Core.Business
 
             extendedMetadata.ClientEditingClass = "gecko/IconSelectionEditor";
             extendedMetadata.EditorConfiguration.Add("SelectionGridWidth", SelectionGridWidth);
+            extendedMetadata.EditorConfiguration.Add("IconsPerRow", IconsPerRow);
             extendedMetadata.SelectionFactoryType = SelectionFactoryType;
         }
 
         public virtual Type SelectionFactoryType { get; set; }
 
         public virtual string SelectionGridWidth { get; set; }
+
+        public virtual int? IconsPerRow { get; set; }
     }
 }
