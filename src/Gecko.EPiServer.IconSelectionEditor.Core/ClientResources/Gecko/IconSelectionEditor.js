@@ -1,12 +1,14 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
+    "dojo/sniff",
     "dojox/html/entities",
     "epi-cms/contentediting/editors/SelectionEditor",
     "dijit/MenuBarItem",
     "dijit/MenuSeparator"
 ],
     function (declare, lang, entities, SelectionEditor, MenuBarItem, MenuSeparator) {
+    function (declare, lang, has, entities, SelectionEditor, MenuBarItem, MenuSeparator) {
         return declare("gecko/IconSelectionEditor", [SelectionEditor], {
             buildRendering: function () {
                 this.inherited(arguments);
@@ -22,7 +24,9 @@ define([
                 this.inherited(arguments);
 
                 // Fix for incorrect grid width on firefox.
-                this.dropDown.domNode.style.width = Math.ceil(parseInt(this.dropDown.domNode.style.width) / 5) * 5 + 'px';
+                if (has('ff')) {
+                    this.dropDown.domNode.style.width = Math.ceil(parseInt(this.dropDown.domNode.style.width) / 5) * 5 + 'px';
+                }
 
                 if (this.params.selectionGridWidth) {
                     this.dropDown.domNode.style.maxWidth = this.params.selectionGridWidth;
