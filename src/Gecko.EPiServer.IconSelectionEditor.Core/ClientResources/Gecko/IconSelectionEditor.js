@@ -15,9 +15,13 @@ define([
                 this.dropDown.domNode.classList.add('geckoIconSelectionEditorGrid');
             },
             openDropDown: function () {
+                // For some reason, dropdown width is different for first and later openings.
+                // Setting overflow before calling base method fixes this issue.
+                this.dropDown.domNode.style.overflow = 'auto';
+
                 this.inherited(arguments);
 
-                // For some reason, dropdown width is different for first and later opening which causes problems on Firefox.
+                // Fix for incorrect grid width on firefox.
                 this.dropDown.domNode.style.width = Math.ceil(parseInt(this.dropDown.domNode.style.width) / 5) * 5 + 'px';
 
                 if (this.params.selectionGridWidth) {
