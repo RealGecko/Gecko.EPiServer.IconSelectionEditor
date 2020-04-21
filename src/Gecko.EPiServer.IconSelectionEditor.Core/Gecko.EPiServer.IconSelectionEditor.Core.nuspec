@@ -6,11 +6,12 @@
     <title>Gecko.EPiServer.IconSelectionEditor.Core</title>
     <authors>wojciech.zasadni</authors>
     <owners>wojciech.zasadni</owners>
+    <license type="expression">Unlicense</license>
     <projectUrl>https://github.com/RealGecko/Gecko.EPiServer.IconSelectionEditor/</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Adds extendable selection editor for icons.</description>
     <copyright>Copyright © 2020</copyright>
-    <tags>EPiServerModulePackage</tags>
+    <tags>EPiServerModulePackage Font Icon</tags>
     <dependencies>
       <dependency id="EPiServer.CMS.UI.Core" version="[11.1.0,12.0.0)"/>
     </dependencies>
