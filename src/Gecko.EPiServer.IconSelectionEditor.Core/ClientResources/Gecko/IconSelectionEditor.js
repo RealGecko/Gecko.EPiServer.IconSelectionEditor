@@ -14,6 +14,10 @@ define([
 
                 this.domNode.classList.add('geckoIconSelectionEditorDropdown');
                 this.dropDown.domNode.classList.add('geckoIconSelectionEditorGrid');
+
+                if (this.params.requireClientResources) {
+                    require(this.params.requireClientResources);
+                }
             },
             openDropDown: function () {
                 // For some reason, dropdown width is different for first and later openings.

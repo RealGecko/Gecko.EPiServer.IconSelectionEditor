@@ -16,6 +16,8 @@ namespace Gecko.EPiServer.IconSelectionEditor.Core.Business
             extendedMetadata.ClientEditingClass = "gecko/IconSelectionEditor";
             extendedMetadata.EditorConfiguration.Add("SelectionGridWidth", SelectionGridWidth);
             extendedMetadata.EditorConfiguration.Add("IconsPerRow", IconsPerRow);
+            extendedMetadata.EditorConfiguration.Add("RequireClientResources", RequireClientResources);
+
             extendedMetadata.SelectionFactoryType = SelectionFactoryType;
         }
 
@@ -24,5 +26,7 @@ namespace Gecko.EPiServer.IconSelectionEditor.Core.Business
         public virtual string SelectionGridWidth { get; set; }
 
         public virtual int? IconsPerRow { get; set; }
+        
+        public virtual string[] RequireClientResources { get; set; }
     }
 }
