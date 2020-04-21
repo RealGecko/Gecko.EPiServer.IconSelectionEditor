@@ -14,6 +14,16 @@ define([
                 this.domNode.classList.add('geckoIconSelectionEditorDropdown');
                 this.dropDown.domNode.classList.add('geckoIconSelectionEditorGrid');
             },
+            openDropDown: function () {
+                this.inherited(arguments);
+
+                // For some reason, dropdown width is different for first and later opening which causes problems on Firefox.
+                this.dropDown.domNode.style.width = Math.ceil(parseInt(this.dropDown.domNode.style.width) / 5) * 5 + 'px';
+
+                if (this.params.selectionGridWidth) {
+                    this.dropDown.domNode.style.maxWidth = this.params.selectionGridWidth;
+                }
+            },
             _setSelectionsAttr: function (newSelections) {
 
                 this.set("options", newSelections.flatMap(function (item, index) {
@@ -31,13 +41,6 @@ define([
 
                     return result;
                 }, this));
-            },
-            _onDropDownMouseDown: function () {
-                this.inherited(arguments);
-
-                if (this.params.selectionGridWidth) {
-                    this.dropDown.domNode.style.maxWidth = this.params.selectionGridWidth;
-                }
             },
             _getMenuItemForOption: function (option) {
                 var item = null;
