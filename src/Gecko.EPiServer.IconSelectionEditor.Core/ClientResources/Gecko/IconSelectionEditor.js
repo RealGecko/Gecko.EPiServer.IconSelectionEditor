@@ -7,7 +7,6 @@ define([
     "dijit/MenuBarItem",
     "dijit/MenuSeparator"
 ],
-    function (declare, lang, entities, SelectionEditor, MenuBarItem, MenuSeparator) {
     function (declare, lang, has, entities, SelectionEditor, MenuBarItem, MenuSeparator) {
         return declare("gecko/IconSelectionEditor", [SelectionEditor], {
             buildRendering: function () {
