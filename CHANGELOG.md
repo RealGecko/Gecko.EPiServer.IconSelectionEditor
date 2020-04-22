@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2020-04-22
+
 ### Added
 
 - ```IconsPerRow``` property to ```SelectIconAttribute``` which can be used to specify how many icons should be displayed in a grid row.
@@ -18,5 +20,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial version of Icon Selection Editor for EPiServer.
 
-[unreleased]: https://github.com/RealGecko/Gecko.EPiServer.IconSelectionEditor/compare/1.0.0...HEAD
+[unreleased]: https://github.com/RealGecko/Gecko.EPiServer.IconSelectionEditor/compare/1.1.0...HEAD
+[1.1.0]: https://github.com/RealGecko/Gecko.EPiServer.IconSelectionEditor/compare/1.0.0...1.1.0
 [1.0.0]: https://github.com/RealGecko/Gecko.EPiServer.IconSelectionEditor/releases/tag/1.0.0
