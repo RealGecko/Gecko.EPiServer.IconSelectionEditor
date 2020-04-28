@@ -37,7 +37,7 @@ public class SelectCustomIconAttribute : SelectIconAttribute
     public SelectCustomIconAttribute()
     {
         this.SelectionFactoryType = typeof(CustomIconSelectionFactory);
-        this.SelectionGridWidth = "580px";
+        this.IconsPerRow = 5;
     }
 }
 ```
