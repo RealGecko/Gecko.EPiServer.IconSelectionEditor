@@ -1,13 +1,14 @@
 define([
     "dojo/_base/declare",
     "dojo/_base/lang",
-    "dojo/sniff",
+    "dojo/_base/array",
     "dojox/html/entities",
     "epi-cms/contentediting/editors/SelectionEditor",
     "dijit/MenuBarItem",
-    "dijit/MenuSeparator"
+    "dijit/MenuSeparator",
+    "dijit/popup"
 ],
-    function (declare, lang, has, entities, SelectionEditor, MenuBarItem, MenuSeparator) {
+    function (declare, lang, array, entities, SelectionEditor, MenuBarItem, MenuSeparator, Popup) {
         return declare("gecko/IconSelectionEditor", [SelectionEditor], {
             buildRendering: function () {
                 this.inherited(arguments);
@@ -24,33 +25,36 @@ define([
                 // Setting overflow before calling base method fixes this issue.
                 this.dropDown.domNode.style.overflow = 'auto';
 
-                this.inherited(arguments);
-
-                // Fix for incorrect grid width on firefox.
-                if (has('ff')) {
-                    this.dropDown.domNode.style.width = Math.ceil(parseInt(this.dropDown.domNode.style.width) / 5) * 5 + 'px';
-                }
-
                 if (this.params.selectionGridWidth) {
                     this.dropDown.domNode.style.maxWidth = this.params.selectionGridWidth;
                 }
-            },
-            _setSelectionsAttr: function (newSelections) {
+                else if (this.params.iconsPerRow && this.params.iconsPerRow > 0) {
+                    // Calculate table width to fit number of icons in a row.
+                    Popup.moveOffScreen(this.dropDown);
 
-                this.set("options", newSelections.flatMap(function (item, index) {
-                    var result = [];
-
-                    if (this.params.iconsPerRow > 0 && index % this.params.iconsPerRow == 0) {
-                        result.push({ type: "separator" });
+                    if (this.dropDown.startup && !this.dropDown._started) {
+                        this.dropDown.startup();
                     }
 
-                    result.push({
-                        label: item.value.htmlString,
-                        value: item.text,
-                        selected: (item.value === this.value) || (!item.value && !this.value)
-                    });
+                    var style = this.dropDown.menuTableNode.currentStyle || window.getComputedStyle(this.dropDown.menuTableNode),
+                        margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
+                        padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight),
+                        border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
+                        requiredWidth = margin + padding + border + (Math.ceil(this.dropDown.getChildren()[0].domNode.getBoundingClientRect().width) * this.params.iconsPerRow);
 
-                    return result;
+                    this.dropDown.menuTableNode.style.maxWidth = requiredWidth + 'px';
+                }
+
+                this.inherited(arguments);
+            },
+            _setSelectionsAttr: function (newSelections) {
+                this.set("options", array.map(newSelections, function (item) {
+                    return {
+                        label: item.value.htmlString,
+                        value: item.value.name,
+                        icon: item.value,
+                        selected: item.value === this.value || !item.value && !this.value
+                    };
                 }, this));
             },
             _getMenuItemForOption: function (option) {

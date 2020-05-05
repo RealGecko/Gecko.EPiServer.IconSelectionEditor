@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- When ```IconsPerRow``` is specified, width for table will be calculated instead of using menu separators.
+
 ## [1.1.0] - 2020-04-22
 
 ### Added
