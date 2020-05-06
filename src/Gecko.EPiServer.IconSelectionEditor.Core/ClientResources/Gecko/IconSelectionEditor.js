@@ -9,6 +9,20 @@ define([
     "dijit/popup"
 ],
     function (declare, lang, array, entities, SelectionEditor, MenuBarItem, MenuSeparator, Popup) {
+        function getWidthForDropDownTableElement(dropDown) {
+            return dropDown.getChildren()[0].domNode.getBoundingClientRect().width;
+        }
+
+        function getWidthForDropDownTable(dropDown, iconsPerRow) {
+            var iconWidth = getWidthForDropDownTableElement(dropDown);
+
+            var tableStyle = dropDown.menuTableNode.currentStyle || window.getComputedStyle(dropDown.menuTableNode),
+                tableMargin = parseFloat(tableStyle.marginLeft) + parseFloat(tableStyle.marginRight),
+                tablePadding = parseFloat(tableStyle.paddingLeft) + parseFloat(tableStyle.paddingRight),
+                tableBorder = parseFloat(tableStyle.borderLeftWidth) + parseFloat(tableStyle.borderRightWidth);
+
+            return Math.ceil(tableMargin + tablePadding + tableBorder + (iconWidth * iconsPerRow));
+        }
         return declare("gecko/IconSelectionEditor", [SelectionEditor], {
             buildRendering: function () {
                 this.inherited(arguments);
@@ -21,6 +35,9 @@ define([
                 }
             },
             openDropDown: function () {
+                var hasIconsPerRowConfigured = this.params.iconsPerRow && this.params.iconsPerRow > 0;
+                var widthForTable = null;
+
                 // For some reason, dropdown width is different for first and later openings.
                 // Setting overflow before calling base method fixes this issue.
                 this.dropDown.domNode.style.overflow = 'auto';
@@ -28,7 +45,8 @@ define([
                 if (this.params.selectionGridWidth) {
                     this.dropDown.domNode.style.maxWidth = this.params.selectionGridWidth;
                 }
-                else if (this.params.iconsPerRow && this.params.iconsPerRow > 0) {
+
+                if (hasIconsPerRowConfigured) {
                     // Calculate table width to fit number of icons in a row.
                     Popup.moveOffScreen(this.dropDown);
 
@@ -36,16 +54,18 @@ define([
                         this.dropDown.startup();
                     }
 
-                    var style = this.dropDown.menuTableNode.currentStyle || window.getComputedStyle(this.dropDown.menuTableNode),
-                        margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
-                        padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight),
-                        border = parseFloat(style.borderLeftWidth) + parseFloat(style.borderRightWidth),
-                        requiredWidth = margin + padding + border + (Math.ceil(this.dropDown.getChildren()[0].domNode.getBoundingClientRect().width) * this.params.iconsPerRow);
+                    var widthForTable = getWidthForDropDownTable(this.dropDown, this.params.iconsPerRow);
 
-                    this.dropDown.menuTableNode.style.maxWidth = requiredWidth + 'px';
+                    this.dropDown.menuTableNode.style.width = widthForTable + 'px';
                 }
 
                 this.inherited(arguments);
+
+                if (hasIconsPerRowConfigured) {
+                    // Override values set by base method.
+                    this.dropDown.domNode.style.overflowX = "hidden";
+                    this.dropDown.menuTableNode.style.width = widthForTable + 'px';
+                }
             },
             _setSelectionsAttr: function (newSelections) {
                 this.set("options", array.map(newSelections, function (item) {
