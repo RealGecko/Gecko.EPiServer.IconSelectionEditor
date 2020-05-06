@@ -22,6 +22,10 @@
     border: 0px !important;
 }
 
+.geckoIconSelectionEditorGrid tbody .dijitMenuItem.dijitHover {
+    border: solid 1px #858585;
+}
+
 .geckoIconSelectionEditorGrid thead div.dijitTextBox {
     position: absolute;
     z-index: 1000;
