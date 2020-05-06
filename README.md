@@ -19,6 +19,11 @@ public class CustomIconSelectItem : IconSelectItem
 }
 ```
 
+Here we can specify:
+- ```Id```: Unique id of an icon - this value will be stored in DB.
+- ```Name```: Friendly name which can be used during filtering.
+- ```KeyWords```: Keyword which can be used during filtering.
+
 2. Create IconSelectionFactory which will return all available icons:
 ```csharp
 public class CustomIconSelectionFactory : IconSelectionFactory
@@ -41,6 +46,12 @@ public class SelectCustomIconAttribute : SelectIconAttribute
     }
 }
 ```
+
+Here we can specify:
+- ```IconsPerRow```: how many icons should be displayed in a row.
+- ```RequireClientResources```: additional resources which should be loaded with widget (i.e. css with icons).
+- ```Filterable```: possibility to filter icons by name or keywords.
+- ```SelectionFactoryType```: Our factory created in 2.
 
 4. Decorate EPiServer content model property using created custom attribute:
 ```csharp
