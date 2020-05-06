@@ -41,7 +41,6 @@ define([
 
                 this.dropDown.menuTableNode.createTHead().insertRow(0).insertCell(0).appendChild(this.dropDown.searchTextBox.domNode);
 
-                this.domNode.classList.add('geckoIconSelectionEditorDropdown');
                 this.domNode.classList.add(getCssClass('Dropdown'));
                 this.dropDown.domNode.classList.add(getCssClass('Grid'));
 
@@ -128,8 +127,8 @@ define([
                 this.set("options", array.map(newSelections, function (item) {
                     return {
                         label: item.value.htmlString,
-                        value: item.value.name,
-                        icon: item.value,
+                        value: item.value.id,
+                        details: item.value,
                         selected: item.value === this.value || !item.value && !this.value
                     };
                 }, this));
