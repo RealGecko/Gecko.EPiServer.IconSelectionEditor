@@ -6,10 +6,6 @@
     padding-right: 5px;
 }
 
-.geckoIconSelectionEditorGrid thead tr td {
-    padding-bottom: 28px;
-}
-
 .geckoIconSelectionEditorGrid tbody div.dijitMenuItem {
     padding: 1em !important;
 }
@@ -31,4 +27,13 @@
     z-index: 1000;
     margin: 0;
     box-sizing: border-box;
+    display: none;
+}
+
+.geckoIconSelectionEditorFilterableGrid thead div.dijitTextBox {
+    display: block;
+}
+
+.geckoIconSelectionEditorFilterableGrid thead tr td {
+    padding-bottom: 28px;
 }

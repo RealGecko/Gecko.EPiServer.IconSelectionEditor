@@ -17,6 +17,7 @@ namespace Gecko.EPiServer.IconSelectionEditor.Core.Business
             extendedMetadata.EditorConfiguration.Add("SelectionGridWidth", SelectionGridWidth);
             extendedMetadata.EditorConfiguration.Add("IconsPerRow", IconsPerRow);
             extendedMetadata.EditorConfiguration.Add("RequireClientResources", RequireClientResources);
+            extendedMetadata.EditorConfiguration.Add("Filterable", Filterable);
 
             extendedMetadata.SelectionFactoryType = SelectionFactoryType;
         }
@@ -28,5 +29,7 @@ namespace Gecko.EPiServer.IconSelectionEditor.Core.Business
         public virtual int? IconsPerRow { get; set; }
         
         public virtual string[] RequireClientResources { get; set; }
+
+        public bool Filterable { get; set; }
     }
 }

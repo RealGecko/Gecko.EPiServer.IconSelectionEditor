@@ -44,6 +44,10 @@ define([
                 this.domNode.classList.add(getCssClass('Dropdown'));
                 this.dropDown.domNode.classList.add(getCssClass('Grid'));
 
+                if (this.params.filterable) {
+                    this.dropDown.domNode.classList.add(getCssClass('FilterableGrid'));
+                }
+
                 if (this.params.requireClientResources) {
                     require(this.params.requireClientResources);
                 }
