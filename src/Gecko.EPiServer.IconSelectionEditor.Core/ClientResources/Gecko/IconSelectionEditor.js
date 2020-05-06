@@ -2,13 +2,15 @@ define([
     "dojo/_base/declare",
     "dojo/_base/lang",
     "dojo/_base/array",
+    "dojo/on",
     "dojox/html/entities",
     "epi-cms/contentediting/editors/SelectionEditor",
     "dijit/MenuBarItem",
     "dijit/MenuSeparator",
-    "dijit/popup"
+    "dijit/popup",
+    "dijit/form/TextBox",
 ],
-    function (declare, lang, array, entities, SelectionEditor, MenuBarItem, MenuSeparator, Popup) {
+    function (declare, lang, array, on, entities, SelectionEditor, MenuBarItem, MenuSeparator, Popup, TextBox) {
         function getWidthForDropDownTableElement(dropDown) {
             return dropDown.getChildren()[0].domNode.getBoundingClientRect().width;
         }
@@ -23,9 +25,16 @@ define([
 
             return Math.ceil(tableMargin + tablePadding + tableBorder + (iconWidth * iconsPerRow));
         }
+
         return declare("gecko/IconSelectionEditor", [SelectionEditor], {
             buildRendering: function () {
                 this.inherited(arguments);
+
+                this.dropDown.searchTextBox = new TextBox({
+                    placeHolder: 'Filter icons...'
+                });
+
+                this.dropDown.menuTableNode.createTHead().insertRow(0).insertCell(0).appendChild(this.dropDown.searchTextBox.domNode);
 
                 this.domNode.classList.add('geckoIconSelectionEditorDropdown');
                 this.dropDown.domNode.classList.add('geckoIconSelectionEditorGrid');
@@ -57,6 +66,7 @@ define([
                     var widthForTable = getWidthForDropDownTable(this.dropDown, this.params.iconsPerRow);
 
                     this.dropDown.menuTableNode.style.width = widthForTable + 'px';
+                    this.dropDown.searchTextBox.domNode.style.width = getWidthForDropDownTableElement(this.dropDown) * this.params.iconsPerRow + 'px';
                 }
 
                 this.inherited(arguments);

@@ -1,10 +1,13 @@
 ﻿.geckoIconSelectionEditorDropdown {
-
 }
 
 .geckoIconSelectionEditorGrid .dijitMenuTable {
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.geckoIconSelectionEditorGrid thead tr td {
+    padding-bottom: 28px;
 }
 
 .geckoIconSelectionEditorGrid tbody div.dijitMenuItem {
@@ -17,4 +20,11 @@
 
 .geckoIconSelectionEditorGrid tbody div.dijitMenuSeparatorTop {
     border: 0px !important;
+}
+
+.geckoIconSelectionEditorGrid thead div.dijitTextBox {
+    position: absolute;
+    z-index: 1000;
+    margin: 0;
+    box-sizing: border-box;
 }
