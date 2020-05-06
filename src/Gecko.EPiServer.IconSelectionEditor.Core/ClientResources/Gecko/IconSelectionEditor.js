@@ -26,6 +26,10 @@ define([
             return Math.ceil(tableMargin + tablePadding + tableBorder + (iconWidth * iconsPerRow));
         }
 
+        function getCssClass(name) {
+            return 'geckoIconSelectionEditor' + name;
+        }
+
         return declare("gecko/IconSelectionEditor", [SelectionEditor], {
             buildRendering: function () {
                 this.inherited(arguments);
@@ -38,7 +42,8 @@ define([
                 this.dropDown.menuTableNode.createTHead().insertRow(0).insertCell(0).appendChild(this.dropDown.searchTextBox.domNode);
 
                 this.domNode.classList.add('geckoIconSelectionEditorDropdown');
-                this.dropDown.domNode.classList.add('geckoIconSelectionEditorGrid');
+                this.domNode.classList.add(getCssClass('Dropdown'));
+                this.dropDown.domNode.classList.add(getCssClass('Grid'));
 
                 if (this.params.requireClientResources) {
                     require(this.params.requireClientResources);
